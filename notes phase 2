@@ -1,0 +1,6 @@
+http methods        endpoint        http path           purpose
+POST                addName         /name/:name         add name represented by the name path
+GET                 listNames       /name               get list of names
+DELETE              deleteName      /name/:name         add the name represented to the name path variable
+
+

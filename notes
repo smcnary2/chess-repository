@@ -1,0 +1,76 @@
+domain driven design
+    who are the actors
+    what are the tasks you want the actors to accomplish
+    what objects do the actors use
+    what are the interactions b/w actors and objects that are necessary to the tasks
+
+After this then think about the data structures and all the code
+
+chess player
+             >  chess server  > data base
+chess player
+
+multiple connections so that game play is driven by clients and not by the server
+
+design  > implement >  verify
+
+abstract as much as possible
+
+what is coming in and what is going out (input/output)
+
+decompose problems
+can I modularize those big problems into small problems
+
+good names
+
+aggregation vs. inheritance (look this up)
+    aggregation:is-a/has-a relationship(idk what that means
+    inheritance:polymorphism???
+
+git:version repository for a directory, repository colaboration
+dont put a repository in a repository
+
+you may have to use cmd for this project :(
+
+use github
+create account
+create repo
+get personal access token
+get repo url
+
+gitignore out
+
+lambda what is it???
+i dont understand google it
+creates objects within function???
+"A lambda expression is a short block of code which takes in parameters and returns
+a value. Lambda expressions are similar to methods, but they do not need a name and they
+can be implemented right in the body of a method."
+
+public static void withoutLambda(List<integer> list){
+    list.removeIf(new Predicate<Integer>() {
+    public boolean test (integer n{return n>2; }
+    });
+    }
+}
+
+same as
+
+private static void withLambda (List <Integer> list){
+list.removeIf(n -> n > 2);
+
+}
+
+embedded lambda:lambda inside a lambda
+
+what are closures???
+need to know for chess
+sorta touch and go?
+
+JSON we talked about it look it up (idk what for)
+for webdevelopment???
+we are using GSON(googles version)
+to json method for something
+
+
+

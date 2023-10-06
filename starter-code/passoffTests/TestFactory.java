@@ -7,12 +7,14 @@ import chess.*;
  * Add in code using your classes for each method for each FIXME
  */
 public class TestFactory {
-
+    //finish
     //Chess Functions
     //------------------------------------------------------------------------------------------------------------------
     public static ChessBoard getNewBoard(){
         // FIXME
-		return null;
+        //return board
+        Board newboard;
+		return  newboard = new Board();
     }
 
     public static ChessGame getNewGame(){

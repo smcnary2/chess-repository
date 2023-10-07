@@ -1,7 +1,7 @@
 package chess;
 
 public class Board implements ChessBoard{
-    //extend piece for get piece method
+
     ChessPiece[][] newboard;
     //array that keeps track of peice position or make a mthod that iterates through board to find all pieces
 
@@ -22,43 +22,35 @@ public class Board implements ChessBoard{
     @Override
     public ChessPiece getPiece(ChessPosition position) {
         // at this position in the array what piece
-        return null;
+        ChessPiece possiblePiece = newboard [position.getRow()][position.getColumn()];
+        return possiblePiece;
     }
 
     @Override
     public void resetBoard() {
-
-        int color = 1;
-        int piece;
-        for (int k = 0; k < 8;) {
-            System.out.print('\n');
-            if(k == 6 || k == 1){
-                piece = 6;
-            }else{
-                piece= 0;
-            }
-            for (int i = 0; i < 8; i++) {
-                if(piece <5 && i<5){
-                    piece++;
-                }
-                if(piece == 5 && i > 4){
-                    piece--;
-                }
-                if(piece <= 4 && i >4){
-                    piece--;
-                }
-                //addPiece(new Position(k,i),new Piece(color,piece));//this loop may not work for piece
-                System.out.print(piece);
-                //if I make type an array in postion then this loop still works, but that doesnt mean its a good idea
-            }
-            if(k == 1){
-                k=6;
-                color = 0;
-            }else{
-                k++;
-            }
+        newboard = new ChessPiece[8][8];
+        addPiece(new Position(0,0), new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
+        addPiece(new Position(0,1),new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT));
+        addPiece(new Position(0,2),new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP));
+        addPiece(new Position(0,3), new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.QUEEN));
+        addPiece(new Position(0,4), new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KING));
+        addPiece(new Position(0,5), new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP));
+        addPiece(new Position(0,6),new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT));
+        addPiece(new Position(0,7), new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK));
+        for (int i = 0; i < 8; i++) {
+            addPiece(new Position(1,i), new Piece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.PAWN));
         }
-
+        for (int i = 0; i < 8; i++) {
+            addPiece(new Position(6,i),new Piece(ChessGame.TeamColor.BLACK,ChessPiece.PieceType.PAWN));
+        }
+        addPiece(new Position(7,0), new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK));
+        addPiece(new Position(7,1),new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
+        addPiece(new Position(7,2),new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP));
+        addPiece(new Position(7,3), new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.QUEEN));
+        addPiece(new Position(7,4), new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KING));
+        addPiece(new Position(7,5), new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP));
+        addPiece(new Position(7,6),new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT));
+        addPiece(new Position(7,7), new Piece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK));
         //array that holds captured pieces(dont create new objects or have garbage collector take it) or a flag
         //use get column get row
     }

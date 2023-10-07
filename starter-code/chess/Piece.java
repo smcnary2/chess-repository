@@ -5,24 +5,13 @@ import java.util.*;
 
 public class Piece implements ChessPiece{
 
-    PieceType newpiece;
-    TeamColor newteamcolor;
+    ChessPiece.PieceType newpiece;
+    ChessGame.TeamColor newteamcolor;
 
-    enum TeamColor {
-        WHITE,
-        BLACK
-    }
-    public enum PieceType {
-        KING,
-        QUEEN,
-        BISHOP,
-        KNIGHT,
-        ROOK,
-        PAWN
-    }
+
    // I might change this to an array.length() = 6 or just not a string
     //enum for type and color
-    public Piece(TeamColor color,PieceType i){
+    public Piece(ChessGame.TeamColor color,ChessPiece.PieceType i){
          newteamcolor = color;//set team color
          newpiece = i;//set piece type rkbkqp
     }
@@ -32,10 +21,10 @@ public class Piece implements ChessPiece{
     }
 
     @Override
-    public PieceType getPieceType() {//6 types of pieces
+    public ChessPiece.PieceType getPieceType() {//6 types of pieces
         return newpiece;
     }
-//override in classes for pieces
+    //override in classes for pieces
     @Override
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         // a list of all moves made? ask TA dont understand instructions

@@ -4,9 +4,7 @@ import java.util.Collection;
 
 /**
  * Represents a single chess piece
- * 
- * Note: You can add to this interface, but you should not alter the existing
- * methods.
+ * Note: You can add to this interface, but you should not alter the existing methods.
  */
 public interface ChessPiece {
 

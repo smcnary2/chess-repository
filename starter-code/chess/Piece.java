@@ -1,7 +1,6 @@
 package chess;
 
 import java.util.Collection;
-import java.util.*;
 
 public class Piece implements ChessPiece{
 
@@ -12,7 +11,7 @@ public class Piece implements ChessPiece{
         WHITE,
         BLACK
     }
-    public enum PieceType {
+     enum PieceType {
         KING,
         QUEEN,
         BISHOP,
@@ -27,7 +26,7 @@ public class Piece implements ChessPiece{
          newpiece = i;//set piece type rkbkqp
     }
     @Override
-    public ChessGame.TeamColor getTeamColor() {
+    public TeamColor getTeamColor() {//ChessGame.TeamColor
         return newteamcolor;
     }
 
@@ -35,6 +34,7 @@ public class Piece implements ChessPiece{
     public PieceType getPieceType() {//6 types of pieces
         return newpiece;
     }
+
 //override in classes for pieces
     @Override
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {

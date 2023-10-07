@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class Game implements ChessGame{
 
-    enum TeamColor {
+    public enum TeamColor {
         WHITE,
         BLACK
     }

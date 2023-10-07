@@ -4,14 +4,14 @@ import java.util.Collection;
 
 public class Piece implements ChessPiece{
 
-    PieceType newpiece;
+
     TeamColor newteamcolor;
 
     enum TeamColor {
         WHITE,
         BLACK
     }
-     enum PieceType {
+     public enum PieceTypes {
         KING,
         QUEEN,
         BISHOP,
@@ -19,9 +19,10 @@ public class Piece implements ChessPiece{
         ROOK,
         PAWN
     }
+    PieceTypes newpiece;
    // I might change this to an array.length() = 6 or just not a string
     //enum for type and color
-    public Piece(TeamColor color,PieceType i){
+    public Piece(TeamColor color,PieceTypes i){
          newteamcolor = color;//set team color
          newpiece = i;//set piece type rkbkqp
     }
@@ -31,7 +32,7 @@ public class Piece implements ChessPiece{
     }
 
     @Override
-    public PieceType getPieceType() {//6 types of pieces
+    public PieceTypes getPieceType() {//6 types of pieces //changed it to return piece types instead of piece type because of error
         return newpiece;
     }
 

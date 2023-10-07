@@ -30,7 +30,7 @@ public interface ChessPiece {
     /**
      * @return which type of chess piece this piece is
      */
-    PieceType getPieceType();
+    Piece.PieceTypes getPieceType();
 
     /**
      * Calculates all the positions a chess piece can move to

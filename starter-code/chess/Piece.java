@@ -28,8 +28,8 @@ public class Piece implements ChessPiece {
 //override in classes for pieces
     @Override
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        // a list of all moves made? ask TA dont understand instructions
         //give it a positon and give it a chess position and it will give a collection of possible moves
+
         return null;
     }
 }

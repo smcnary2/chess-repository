@@ -3,8 +3,12 @@ package chess;
 import java.util.Collection;
 
 public class Game implements ChessGame{
+    public Board board;
+    public TeamColor team;
+    public Game(){
+        this.board = board;
 
-
+    }
     @Override
     public TeamColor getTeamTurn() {
         return null;
@@ -42,11 +46,12 @@ public class Game implements ChessGame{
 
     @Override
     public void setBoard(ChessBoard board) {
-
+        board.resetBoard();
     }
 
     @Override
     public ChessBoard getBoard() {
-        return null;
+
+        return this.board;
     }
 }

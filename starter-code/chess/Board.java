@@ -10,7 +10,6 @@ public class Board implements ChessBoard{
         //rkbkqbkr
         //pppppppp
         newboard = new ChessPiece[8][8];
-        resetBoard();
 
     }
     @Override

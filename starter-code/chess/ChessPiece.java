@@ -25,12 +25,12 @@ public interface ChessPiece {
     /**
      * @return Which team this chess piece belongs to
      */
-    Piece.TeamColor getTeamColor();
+    ChessGame.TeamColor getTeamColor();
 
     /**
      * @return which type of chess piece this piece is
      */
-    Piece.PieceTypes getPieceType();
+    Piece.PieceType getPieceType();
 
     /**
      * Calculates all the positions a chess piece can move to

@@ -4,10 +4,7 @@ import java.util.Collection;
 
 public class Game implements ChessGame{
 
-    public enum TeamColor {
-        WHITE,
-        BLACK
-    }
+
     @Override
     public TeamColor getTeamTurn() {
         return null;

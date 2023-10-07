@@ -1,28 +1,17 @@
 package chess;
-
+import chess.ChessGame.TeamColor;
 import java.util.Collection;
-
-public class Piece implements ChessPiece{
+public class Piece implements ChessPiece {
 
 
     TeamColor newteamcolor;
 
-    enum TeamColor {
-        WHITE,
-        BLACK
-    }
-     public enum PieceTypes {
-        KING,
-        QUEEN,
-        BISHOP,
-        KNIGHT,
-        ROOK,
-        PAWN
-    }
-    PieceTypes newpiece;
+
+
+    PieceType newpiece;
    // I might change this to an array.length() = 6 or just not a string
     //enum for type and color
-    public Piece(TeamColor color,PieceTypes i){
+    public Piece(TeamColor color,PieceType i){
          newteamcolor = color;//set team color
          newpiece = i;//set piece type rkbkqp
     }
@@ -32,7 +21,7 @@ public class Piece implements ChessPiece{
     }
 
     @Override
-    public PieceTypes getPieceType() {//6 types of pieces //changed it to return piece types instead of piece type because of error
+    public PieceType getPieceType() {//6 types of pieces
         return newpiece;
     }
 

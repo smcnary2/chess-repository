@@ -20,13 +20,11 @@ public class TestFactory {
     }
 
     public static ChessPiece getNewPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type){
-        // FIXME
         Piece a ;
 		return  a = new Piece(pieceColor,type);
     }
 
     public static ChessPosition getNewPosition(Integer row, Integer col){
-        // FIXME
         Position b ;
 		return b = new Position(row-1, col-1);
     }

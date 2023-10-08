@@ -21,7 +21,7 @@ public interface ChessPiece {
         ROOK,
         PAWN
     }
-
+    Piece.PieceType getPromotionPiece();
     /**
      * @return Which team this chess piece belongs to
      */

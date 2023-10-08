@@ -5,7 +5,7 @@ public class Piece implements ChessPiece {
 
 
     TeamColor newteamcolor;
-
+    PieceType promotionPiece;
 
 
     PieceType newpiece;
@@ -14,6 +14,14 @@ public class Piece implements ChessPiece {
     public Piece(TeamColor color,PieceType i){
          newteamcolor = color;//set team color
          newpiece = i;//set piece type rkbkqp
+    }
+
+    public PieceType getPromotionPiece(){
+        return this.promotionPiece;
+    }
+
+    public void setPromotionPiece(Piece.PieceType promotionPiece){
+        this.promotionPiece = promotionPiece;
     }
     @Override
     public TeamColor getTeamColor() {//ChessGame.TeamColor

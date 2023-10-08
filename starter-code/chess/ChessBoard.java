@@ -26,6 +26,8 @@ public interface ChessBoard {
      */
     ChessPiece getPiece(ChessPosition position);
 
+    void movePiece(ChessMove move);
+
     /**
      * Sets the board to the default starting board
      * (How the game of chess normally starts)

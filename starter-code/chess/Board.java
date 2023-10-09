@@ -23,6 +23,14 @@ public class Board implements ChessBoard{
         // at this position in the array what piece
         return newboard[position.getRow()-1][position.getColumn()-1];
     }
+    @Override
+    public void movePiece(ChessMove move){
+        int row = move.getStartPosition().getRow();
+        int column = move.getStartPosition().getColumn();
+        ChessPiece piece = newboard[row][column];
+        newboard[row][column] = null;
+        this.addPiece(move.getEndPosition(), piece);
+    }
 
     @Override
     public void movePiece(ChessMove move){

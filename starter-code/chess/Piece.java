@@ -3,6 +3,7 @@ import chess.ChessGame.TeamColor;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Piece implements ChessPiece {
@@ -64,6 +65,7 @@ public class Piece implements ChessPiece {
         switch (pieceType) {
             case BISHOP:
                 // diagonal forward left
+                //row appears to always be 4 off, col is just wrong
                 rowInc = 1;
                 colInc = -1;
 
@@ -215,7 +217,7 @@ public class Piece implements ChessPiece {
                     if (canMove) {
                         moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     }
-                } else {
+                } else if(this.newteamcolor == TeamColor.BLACK) {
                     if (pieceRow == 7) {//move 2
                         rowInc = -2;
                         endPosition = new Position(moveRow + rowInc, moveColumn);
@@ -227,7 +229,7 @@ public class Piece implements ChessPiece {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     //diagonal 2
                     //right
-                    colInc = 1;
+                    colInc = -1;
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = board.getPiece(endPosition);
                     canMove = ((occupant != null) && (occupant.getTeamColor() == TeamColor.WHITE));
@@ -235,7 +237,7 @@ public class Piece implements ChessPiece {
                         moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     }
                     //left
-                    colInc = -1;
+                    colInc = 1;
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = board.getPiece(endPosition);
                     canMove = ((occupant != null) && (occupant.getTeamColor() == TeamColor.WHITE));
@@ -245,7 +247,7 @@ public class Piece implements ChessPiece {
                 }
                 return moves;
             case ROOK:
-                //forward
+                //row and col are calcuated incorrectly??
                 rowInc = 1;
 
                 canMove = (moveRow < 8);
@@ -345,6 +347,7 @@ public class Piece implements ChessPiece {
                 return moves;
             case QUEEN:
                 //forward
+                //missing coordinates in moves
                 rowInc = 1;
 
                 canMove = (moveRow < 8);
@@ -638,4 +641,6 @@ public class Piece implements ChessPiece {
         }
         return null;
     }
+
+
 }

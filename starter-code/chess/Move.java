@@ -40,8 +40,24 @@ public class Move implements ChessMove {
     }
 
 
+    @Override
+    public String toString() {
+        return "Move{" +
+                "startPosition=" + startPosition +
+                ", endPosition=" + endPosition +
+                ", promotionPiece=" + promotionPiece +
+                '}';
+    }
 
-    public int hashCode(ChessPosition endPosition, ChessPosition startPosition) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Move move)) return false;
+        return Objects.equals(startPosition, move.startPosition) && Objects.equals(endPosition, move.endPosition) && promotionPiece == move.promotionPiece;
+    }
+
+    @Override
+    public int hashCode() {
         return Objects.hash(startPosition, endPosition);
     }
 }

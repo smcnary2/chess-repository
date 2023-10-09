@@ -1,4 +1,7 @@
 package chess;
+
+import java.util.Objects;
+
 //its done
 public class Position implements ChessPosition{
     public int row;// maybe 2 arrays (row & column) of all the positions and then just return coordinates
@@ -32,7 +35,23 @@ public class Position implements ChessPosition{
     }
 
     @Override
-    public boolean equals(ChessPosition p) {
-        return this.column == p.getColumn() && this.row == p.getRow();
+    public String toString() {
+        return "Position{" +
+                "row=" + row +
+                ", column=" + column +
+                '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position position)) return false;
+        return row == position.row && column == position.column;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
     }
 }

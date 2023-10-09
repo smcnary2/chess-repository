@@ -6,8 +6,9 @@ import java.util.Collection;
 public class Game implements ChessGame{
     public ChessBoard board;
     public TeamColor team;
-
+    public Collection<ChessMove> moves;
     public Game(){
+
 
     }
     @Override
@@ -16,7 +17,7 @@ public class Game implements ChessGame{
     }
 
     @Override
-    public void setTeamTurn(TeamColor team) {
+    public void setTeamTurn(TeamColor team)  {
         this.team = team;
     }
 
@@ -28,15 +29,13 @@ public class Game implements ChessGame{
 
     @Override
     public void makeMove(ChessMove move) throws InvalidMoveException {
-//        ChessPiece piece = board.getPiece(move.getStartPosition());
-        Collection<ChessMove> moves = this.validMoves(move.getStartPosition());
+         moves = this.validMoves(move.getStartPosition());
         for (ChessMove m: moves){
             if (m.getEndPosition().equals(m.getEndPosition())){
                 this.board.movePiece(move);
                 break;
             }
         }
-
     }
 
     @Override
@@ -57,11 +56,11 @@ public class Game implements ChessGame{
     @Override
     public void setBoard(ChessBoard board) {
         this.board = board;
-
     }
 
     @Override
     public ChessBoard getBoard() {
+
         return this.board;
     }
 }

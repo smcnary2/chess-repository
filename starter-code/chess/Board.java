@@ -32,14 +32,7 @@ public class Board implements ChessBoard{
         this.addPiece(move.getEndPosition(), piece);
     }
 
-    @Override
-    public void movePiece(ChessMove move){
-        int row = move.getStartPosition().getRow();
-        int column = move.getStartPosition().getColumn();
-        ChessPiece piece = newboard[row-1][column-1];
-        newboard[row-1][column-1] = null;
-        this.addPiece(move.getEndPosition(), piece);
-    }
+
     @Override
     public void resetBoard() {
         newboard = new Piece[8][8];

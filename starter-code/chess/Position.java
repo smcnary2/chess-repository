@@ -30,4 +30,9 @@ public class Position implements ChessPosition{
     public int getColumn() {
         return column;
     }
+
+    @Override
+    public boolean equals(ChessPosition p) {
+        return this.column == p.getColumn() && this.row == p.getRow();
+    }
 }

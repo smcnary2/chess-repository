@@ -439,10 +439,9 @@ public class Piece implements ChessPiece {
                         }
                     }
                 }
-
-                // backwards
                 moveRow = tmprow;
                 moveColumn = tmpcol;
+                // backwards
                 rowInc = -1;
 
                 canMove = (moveRow > 1);
@@ -530,6 +529,7 @@ public class Piece implements ChessPiece {
                         }
                     }
                 }
+
                 // diagonal forward left
                 moveRow = tmprow;
                 moveColumn = tmpcol;
@@ -562,10 +562,10 @@ public class Piece implements ChessPiece {
                         }
                     }
                 }
-
-                // diagonal forward right
                 moveRow = tmprow;
                 moveColumn = tmpcol;
+
+                // diagonal forward right
                 rowInc = 1;
                 colInc = 1;
 
@@ -595,9 +595,10 @@ public class Piece implements ChessPiece {
                         }
                     }
                 }
-                // diagonal back left
+
                 moveRow = tmprow;
                 moveColumn = tmpcol;
+                // diagonal back left
                 rowInc = -1;
                 colInc = -1;
 
@@ -627,9 +628,10 @@ public class Piece implements ChessPiece {
                         }
                     }
                 }
-                // diagonal back right
+
                 moveRow = tmprow;
                 moveColumn = tmpcol;
+                // diagonal back right
                 rowInc = -1;
                 colInc = 1;
 
@@ -653,6 +655,7 @@ public class Piece implements ChessPiece {
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
                             if(this.newteamcolor != occupant.getTeamColor()){
+
                                 moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                                 canMove = false;
                             }

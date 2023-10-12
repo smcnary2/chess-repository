@@ -20,8 +20,6 @@ public class Move implements ChessMove {
 
     @Override
     public ChessPosition getEndPosition() {
-        //row & column
-
         return endPosition;
     }
 

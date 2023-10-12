@@ -40,18 +40,18 @@ public class Game implements ChessGame{
         for (ChessMove m: moves){
             if (m.getEndPosition().equals(move.getEndPosition())){
                 this.board.movePiece(move);
-                lastMove = move;
-                //change turn
-                if(this.isInCheck(team)){
-                    //ischeck = true
-                    if(this.isInCheckmate(team)){
-                        //game end??
-                    }
-                } else if (this.isInStalemate(team)) {
-                    //end game
-                }
                 break;
             }
+        }
+        lastMove = move;
+        //change turn
+        if(this.isInCheck(team)){
+            //ischeck = true
+            if(this.isInCheckmate(team)){
+                //game end??
+            }
+        } else if (this.isInStalemate(team)) {
+            //end game
         }
     }
 
@@ -69,25 +69,25 @@ public class Game implements ChessGame{
     @Override
     public boolean isInCheck(TeamColor teamColor) {
         //check final move can kill king
-        boolean killedKing = false;
+        //boolean killedKing = false;
         findKing(teamColor);//find king
-
-            for (int i = 1; i < 9; i++) {//use piece moves on all pieces
-                for (int j = 1; j < 9; j++) {
-                    Position tmpP = new Position(i,j);
-                    ChessPiece tmp = board.getPiece(tmpP);
-                    if( tmp != null && tmp.getTeamColor() == teamColor){
-                        validMoves(tmpP);
-                        if(moves != null){
-                            if(moves.contains(new Move(kingForCheck,tmpP, null))){
-                                return true;
-                            }
-
+        for (int i = 1; i < 9; i++) {//use piece moves on all pieces
+            for (int j = 1; j < 9; j++) {
+                Position tmpP = new Position(i,j);
+                ChessPiece tmp = board.getPiece(tmpP);
+                if( tmp != null && tmp.getTeamColor() != teamColor){
+                    moves = validMoves(tmpP);
+                    if(moves != null){
+                        if(moves.contains(new Move(tmpP,kingForCheck, null))){
+                            return true;
                         }
 
                     }
+
                 }
             }
+        }
+
 
             // see if end position is where king is
 
@@ -98,12 +98,21 @@ public class Game implements ChessGame{
     @Override
     public boolean isInCheckmate(TeamColor teamColor) {
         //check final move can kill king
-            boolean check = this.isInCheckmate(teamColor);//call isInCheck
+            boolean check = this.isInCheck(teamColor);//call isInCheck
         //if true see if king can escape
             //use piece move on king
-        validMoves(kingForCheck);//use piece moves on all pieces
-        for (ChessMove m:
-             moves) {
+        if(check){
+            moves = validMoves(kingForCheck);//use piece moves on all pieces
+            if(moves== null){
+                return true;
+            }
+            for (ChessMove m:
+                    moves) {
+                check = this.isInCheck(teamColor);
+               if(check) {
+                   return true;
+               }
+            }
 
         }
         return false;

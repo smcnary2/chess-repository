@@ -1,9 +1,9 @@
 package chess;
-
 import chess.ChessGame.TeamColor;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Piece implements ChessPiece {
@@ -822,6 +822,7 @@ public class Piece implements ChessPiece {
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
+
                 return moves;
         }
         return null;

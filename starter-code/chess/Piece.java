@@ -54,6 +54,8 @@ public class Piece implements ChessPiece {
         ChessPiece occupant;
         int rowInc = 0;
         int colInc = 0;
+        int tmprow = myPosition.getRow();;
+        int tmpcol = myPosition.getColumn();
 
         ChessPiece.PieceType pieceType;
         if (this.promotionPiece == null) {
@@ -84,13 +86,19 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow < 8) && (moveColumn > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
+                moveRow = tmprow;
+                moveColumn = tmpcol;
 
                 // diagonal forward right
                 rowInc = 1;
@@ -111,13 +119,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow < 8) && (moveColumn < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
+
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 // diagonal back left
                 rowInc = -1;
                 colInc = -1;
@@ -137,13 +152,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow > 1) && (moveColumn > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
+
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 // diagonal back right
                 rowInc = -1;
                 colInc = 1;
@@ -163,10 +185,15 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow > 1) && (moveColumn < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
@@ -190,6 +217,8 @@ public class Piece implements ChessPiece {
                 return moves;
             case PAWN:
                 //check color
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 if (this.newteamcolor == TeamColor.WHITE) {
                     if (pieceRow == 2) {//move 2
                         rowInc = 2;
@@ -202,6 +231,8 @@ public class Piece implements ChessPiece {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     //diagonal 2
                     //right
+                    moveRow = tmprow;
+                    moveColumn = tmpcol;
                     colInc = 1;
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = board.getPiece(endPosition);
@@ -210,6 +241,7 @@ public class Piece implements ChessPiece {
                         moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     }
                     //left
+
                     colInc = -1;
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = board.getPiece(endPosition);
@@ -217,6 +249,8 @@ public class Piece implements ChessPiece {
                     if (canMove) {
                         moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     }
+                    moveRow = tmprow;
+                    moveColumn = tmpcol;
                 } else if(this.newteamcolor == TeamColor.BLACK) {
                     if (pieceRow == 7) {//move 2
                         rowInc = -2;
@@ -224,11 +258,13 @@ public class Piece implements ChessPiece {
                         moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     }
                     //forwards
+
                     rowInc = -1;
                     endPosition = new Position(moveRow + rowInc, moveColumn);
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     //diagonal 2
                     //right
+
                     colInc = -1;
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = board.getPiece(endPosition);
@@ -237,6 +273,8 @@ public class Piece implements ChessPiece {
                         moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                     }
                     //left
+                    moveRow = tmprow;
+                    moveColumn = tmpcol;
                     colInc = 1;
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = board.getPiece(endPosition);
@@ -248,55 +286,71 @@ public class Piece implements ChessPiece {
                 return moves;
             case ROOK:
                 //row and col are calcuated incorrectly??
+                //col off by one
+                tmpcol= endPosition.getColumn();
+                tmprow = endPosition.getRow();
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = 1;
 
                 canMove = (moveRow < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn);
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
+
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
 
                     canMove = (moveRow < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
-                    }
+                    }moveRow = moveRow + rowInc;
                 }
-
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 // backwards
                 rowInc = -1;
 
                 canMove = (moveRow > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn);
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
+
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
 
                     canMove = (moveRow > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
-                    }
+                    }moveRow = moveRow + rowInc;
                 }
                 // left
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 colInc = -1;
 
                 canMove = (moveColumn > 1);
@@ -313,14 +367,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveColumn > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
                 // right
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 colInc = 1;
 
                 canMove = (moveColumn < 8);
@@ -337,10 +397,14 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveColumn < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
@@ -348,6 +412,8 @@ public class Piece implements ChessPiece {
             case QUEEN:
                 //forward
                 //missing coordinates in moves
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = 1;
 
                 canMove = (moveRow < 8);
@@ -364,15 +430,21 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
 
                 // backwards
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = -1;
 
                 canMove = (moveRow > 1);
@@ -389,14 +461,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
                 // left
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 colInc = -1;
 
                 canMove = (moveColumn > 1);
@@ -413,14 +491,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveColumn > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
                 // right
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 colInc = 1;
 
                 canMove = (moveColumn < 8);
@@ -437,14 +521,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveColumn < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
                 // diagonal forward left
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = 1;
                 colInc = -1;
 
@@ -463,15 +553,21 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow < 8) && (moveColumn > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
 
                 // diagonal forward right
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = 1;
                 colInc = 1;
 
@@ -490,14 +586,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow < 8) && (moveColumn < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
                 // diagonal back left
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = -1;
                 colInc = -1;
 
@@ -516,14 +618,20 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow > 1) && (moveColumn > 1);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
                 // diagonal back right
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = -1;
                 colInc = 1;
 
@@ -542,24 +650,34 @@ public class Piece implements ChessPiece {
 
                     canMove = (moveRow > 1) && (moveColumn < 8);
                     if (canMove) {
-                        endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                        endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
+                            if(this.newteamcolor != occupant.getTeamColor()){
+                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                                canMove = false;
+                            }
                         }
                     }
                 }
                 return moves;
             case KNIGHT:
                 //f2 l1
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = 2;
                 colInc = -1;
-                canMove = (moveRow + rowInc < 8) && (moveColumn + colInc > 1);
+                canMove = (moveRow < 8) && (moveColumn > 1);
                 if (canMove) {
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        if(this.newteamcolor != occupant.getTeamColor()){
+                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                            canMove = false;
+                        }
                     }
                 }
                 if (canMove) {
@@ -567,13 +685,19 @@ public class Piece implements ChessPiece {
                 }
 
                 //right 1
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 colInc = 1;
-                canMove = (moveRow + rowInc < 8) && (moveColumn + colInc < 8);
+                canMove = (moveRow < 8) && (moveColumn < 8);
                 if (canMove) {
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        if(this.newteamcolor != occupant.getTeamColor()){
+                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                            canMove = false;
+                        }
                     }
                 }
                 if (canMove) {
@@ -581,27 +705,39 @@ public class Piece implements ChessPiece {
                 }
                 //back 2
                 //left1
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = -2;
                 colInc = -1;
-                canMove = (moveRow + rowInc > 1) && (moveColumn + colInc > 1);
+                canMove = (moveRow > 1) && (moveColumn > 1);
                 if (canMove) {
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        if(this.newteamcolor != occupant.getTeamColor()){
+                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                            canMove = false;
+                        }
                     }
                 }
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
                 //right1
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 colInc = 1;
-                canMove = (moveRow + rowInc > 1) && (moveColumn + colInc < 8);
+                canMove = (moveRow > 1) && (moveColumn < 8);
                 if (canMove) {
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        if(this.newteamcolor != occupant.getTeamColor()){
+                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                            canMove = false;
+                        }
                     }
                 }
                 if (canMove) {
@@ -610,9 +746,11 @@ public class Piece implements ChessPiece {
 
                 //left 2
                 //forward1
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 colInc = -2;
                 rowInc = 1;
-                canMove = (moveRow + rowInc < 8) && (moveColumn + colInc > 1);
+                canMove = (moveRow < 8) && (moveColumn > 1);
                 if (canMove) {
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = (ChessPiece) board.getPiece(endPosition);
@@ -624,20 +762,26 @@ public class Piece implements ChessPiece {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
                 //back 1
+                moveRow = tmprow;
+                moveColumn = tmpcol;
                 rowInc = -1;
-                canMove = (moveRow + rowInc > 1) && (moveColumn + colInc > 1);
+                canMove = (moveRow > 1) && (moveColumn > 1);
                 if (canMove) {
                     endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        if(this.newteamcolor != occupant.getTeamColor()){
+                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                            canMove = false;
+                        }
                     }
                 }
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
 
-                return null;
+                return moves;
         }
         return null;
     }

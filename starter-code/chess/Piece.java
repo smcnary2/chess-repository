@@ -287,22 +287,20 @@ public class Piece implements ChessPiece {
             case ROOK:
                 //row and col are calcuated incorrectly??
                 //col off by one
-                tmpcol= endPosition.getColumn();
-                tmprow = endPosition.getRow();
                 moveRow = tmprow;
                 moveColumn = tmpcol;
                 rowInc = 1;
 
                 canMove = (moveRow < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow, moveColumn);
+                    endPosition = new Position(moveRow + rowInc, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-
+                    moveRow = moveRow + rowInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
 
                     canMove = (moveRow < 8);
@@ -316,7 +314,7 @@ public class Piece implements ChessPiece {
                                 canMove = false;
                             }
                         }
-                    }moveRow = moveRow + rowInc;
+                    }
                 }
                 moveRow = tmprow;
                 moveColumn = tmpcol;
@@ -325,14 +323,14 @@ public class Piece implements ChessPiece {
 
                 canMove = (moveRow > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow, moveColumn);
+                    endPosition = new Position(moveRow + rowInc, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-
+                    moveRow = moveRow + rowInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
 
                     canMove = (moveRow > 1);
@@ -346,7 +344,7 @@ public class Piece implements ChessPiece {
                                 canMove = false;
                             }
                         }
-                    }moveRow = moveRow + rowInc;
+                    }
                 }
                 // left
                 moveRow = tmprow;

@@ -39,7 +39,7 @@ public class Position implements ChessPosition{
         return "Position{" +
                 "row=" + row +
                 ", column=" + column +
-                '}';
+                "}";
     }
 
 

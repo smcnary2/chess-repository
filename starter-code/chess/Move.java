@@ -46,7 +46,7 @@ public class Move implements ChessMove {
                 "startPosition=" + startPosition +
                 ", endPosition=" + endPosition +
                 ", promotionPiece=" + promotionPiece +
-                '}';
+                "}\n";
     }
 
     @Override

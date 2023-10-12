@@ -1,9 +1,9 @@
 package chess;
+
 import chess.ChessGame.TeamColor;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class Piece implements ChessPiece {
@@ -54,8 +54,9 @@ public class Piece implements ChessPiece {
         ChessPiece occupant;
         int rowInc = 0;
         int colInc = 0;
-        int tmprow = myPosition.getRow();;
+        int tmprow = myPosition.getRow();
         int tmpcol = myPosition.getColumn();
+        boolean capture = false;
 
         ChessPiece.PieceType pieceType;
         if (this.promotionPiece == null) {
@@ -68,132 +69,128 @@ public class Piece implements ChessPiece {
             case BISHOP:
                 // diagonal forward left
                 //row appears to always be 4 off, col is just wrong
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = 1;
                 colInc = -1;
 
                 canMove = (moveRow < 8) && (moveColumn > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow < 8) && (moveColumn > 1);
+                    canMove = (moveRow < 8) && (moveColumn > 1) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-
                 // diagonal forward right
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = 1;
                 colInc = 1;
 
                 canMove = (moveRow < 8) && (moveColumn < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow < 8) && (moveColumn < 8);
+                    canMove = (moveRow < 8) && (moveColumn < 8) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
 
-                moveRow = tmprow;
-                moveColumn = tmpcol;
                 // diagonal back left
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = -1;
                 colInc = -1;
 
                 canMove = (moveRow > 1) && (moveColumn > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow > 1) && (moveColumn > 1);
+                    canMove = (moveRow > 1) && (moveColumn > 1) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
 
-                moveRow = tmprow;
-                moveColumn = tmpcol;
                 // diagonal back right
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = -1;
                 colInc = 1;
 
                 canMove = (moveRow > 1) && (moveColumn < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow > 1) && (moveColumn < 8);
+                    canMove = (moveRow > 1) && (moveColumn < 8) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
@@ -285,475 +282,411 @@ public class Piece implements ChessPiece {
                 }
                 return moves;
             case ROOK:
-                //row and col are calcuated incorrectly??
-                //col off by one
-                moveRow = tmprow;
-                moveColumn = tmpcol;
+                //forwards
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = 1;
-
                 canMove = (moveRow < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn);
+                    moveRow = moveRow + rowInc;// TEST
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow < 8);
+                    canMove = (moveRow < 8) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;// TEST
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
-                moveRow = tmprow;
-                moveColumn = tmpcol;
                 // backwards
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = -1;
-
                 canMove = (moveRow > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn);
+                    moveRow = moveRow + rowInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow > 1);
+                    canMove = (moveRow > 1) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
                 // left
-                moveRow = tmprow;
-                moveColumn = tmpcol;
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 colInc = -1;
-
                 canMove = (moveColumn > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow, moveColumn + colInc);
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveColumn > 1);
+                    canMove = (moveColumn > 1) && (!capture);
                     if (canMove) {
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
                 // right
-                moveRow = tmprow;
-                moveColumn = tmpcol;
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 colInc = 1;
-
                 canMove = (moveColumn < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow, moveColumn + colInc);
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveColumn < 8);
+                    canMove = (moveColumn < 8) && (!capture);
                     if (canMove) {
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
                 return moves;
             case QUEEN:
-                //forward
-                //missing coordinates in moves
-                moveRow = tmprow;
-                moveColumn = tmpcol;
+                //forwards
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = 1;
-
                 canMove = (moveRow < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn);
+                    moveRow = moveRow + rowInc;// TEST
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow < 8);
+                    canMove = (moveRow < 8) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;// TEST
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
-                moveRow = tmprow;
-                moveColumn = tmpcol;
                 // backwards
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = -1;
-
                 canMove = (moveRow > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn);
+                    moveRow = moveRow + rowInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow > 1);
+                    canMove = (moveRow > 1) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
                 // left
-                moveRow = tmprow;
-                moveColumn = tmpcol;
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 colInc = -1;
-
                 canMove = (moveColumn > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow, moveColumn + colInc);
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveColumn > 1);
+                    canMove = (moveColumn > 1) && (!capture);
                     if (canMove) {
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
                 // right
-                moveRow = tmprow;
-                moveColumn = tmpcol;
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 colInc = 1;
-
                 canMove = (moveColumn < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow, moveColumn + colInc);
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveColumn < 8);
+                    canMove = (moveColumn < 8) && (!capture);
                     if (canMove) {
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
-
                 // diagonal forward left
-                moveRow = tmprow;
-                moveColumn = tmpcol;
+                //row appears to always be 4 off, col is just wrong
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = 1;
                 colInc = -1;
 
                 canMove = (moveRow < 8) && (moveColumn > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow < 8) && (moveColumn > 1);
+                    canMove = (moveRow < 8) && (moveColumn > 1) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-
                 // diagonal forward right
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = 1;
                 colInc = 1;
 
                 canMove = (moveRow < 8) && (moveColumn < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow < 8) && (moveColumn < 8);
+                    canMove = (moveRow < 8) && (moveColumn < 8) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
 
-                moveRow = tmprow;
-                moveColumn = tmpcol;
                 // diagonal back left
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = -1;
                 colInc = -1;
 
                 canMove = (moveRow > 1) && (moveColumn > 1);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow > 1) && (moveColumn > 1);
+                    canMove = (moveRow > 1) && (moveColumn > 1) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
 
-                moveRow = tmprow;
-                moveColumn = tmpcol;
                 // diagonal back right
+                moveRow = pieceRow;
+                moveColumn = pieceColumn;
+                capture = false;
                 rowInc = -1;
                 colInc = 1;
 
                 canMove = (moveRow > 1) && (moveColumn < 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    moveRow = moveRow + rowInc;
+                    moveColumn = moveColumn + colInc;
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
                     }
                 }
                 while (canMove) {
-                    moveRow = moveRow + rowInc;
-                    moveColumn = moveColumn + colInc;
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-
-                    canMove = (moveRow > 1) && (moveColumn < 8);
+                    canMove = (moveRow > 1) && (moveColumn < 8) && (!capture);
                     if (canMove) {
+                        moveRow = moveRow + rowInc;
+                        moveColumn = moveColumn + colInc;
                         endPosition = new Position(moveRow, moveColumn);
                         occupant = (ChessPiece) board.getPiece(endPosition);
                         if (occupant != null) {
                             canMove = !(this.newteamcolor == occupant.getTeamColor());
-                            if(this.newteamcolor != occupant.getTeamColor()){
-
-                                moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                                canMove = false;
-                            }
+                            capture = true;
                         }
                     }
                 }
                 return moves;
             case KNIGHT:
                 //f2 l1
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-                rowInc = 2;
-                colInc = -1;
-                canMove = (moveRow < 8) && (moveColumn > 1);
+                moveRow = pieceRow+2;
+                moveColumn = pieceColumn-1;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
-                        if(this.newteamcolor != occupant.getTeamColor()){
-                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                            canMove = false;
-                        }
                     }
                 }
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
 
-                //right 1
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-                colInc = 1;
-                canMove = (moveRow < 8) && (moveColumn < 8);
+                //f2 r1
+                moveRow = pieceRow+2;
+                moveColumn = pieceColumn+1;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
-                        if(this.newteamcolor != occupant.getTeamColor()){
-                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                            canMove = false;
-                        }
                     }
                 }
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
-                //back 2
-                //left1
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-                rowInc = -2;
-                colInc = -1;
-                canMove = (moveRow > 1) && (moveColumn > 1);
+                //f1 l2
+                moveRow = pieceRow+1;
+                moveColumn = pieceColumn-2;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
-                        if(this.newteamcolor != occupant.getTeamColor()){
-                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                            canMove = false;
-                        }
-                    }
-                }
-                if (canMove) {
-                    moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                }
-                //right1
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-                colInc = 1;
-                canMove = (moveRow > 1) && (moveColumn < 8);
-                if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
-                    occupant = (ChessPiece) board.getPiece(endPosition);
-                    if (occupant != null) {
-                        canMove = !(this.newteamcolor == occupant.getTeamColor());
-                        if(this.newteamcolor != occupant.getTeamColor()){
-                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                            canMove = false;
-                        }
                     }
                 }
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
 
-                //left 2
-                //forward1
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-                colInc = -2;
-                rowInc = 1;
-                canMove = (moveRow < 8) && (moveColumn > 1);
+                //f1 r2
+                moveRow = pieceRow+1;
+                moveColumn = pieceColumn+2;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
@@ -762,26 +695,62 @@ public class Piece implements ChessPiece {
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
-                //back 1
-                moveRow = tmprow;
-                moveColumn = tmpcol;
-                rowInc = -1;
-                canMove = (moveRow > 1) && (moveColumn > 1);
+                //b2 l1
+                moveRow = pieceRow-2;
+                moveColumn = pieceColumn-1;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
                 if (canMove) {
-                    endPosition = new Position(moveRow + rowInc, moveColumn + colInc);
+                    endPosition = new Position(moveRow, moveColumn);
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
-                        if(this.newteamcolor != occupant.getTeamColor()){
-                            moves.add(new Move(myPosition, endPosition, this.promotionPiece));
-                            canMove = false;
-                        }
                     }
                 }
                 if (canMove) {
                     moves.add(new Move(myPosition, endPosition, this.promotionPiece));
                 }
-
+                //b2 r1
+                moveRow = pieceRow-2;
+                moveColumn = pieceColumn+1;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
+                if (canMove) {
+                    endPosition = new Position(moveRow, moveColumn);
+                    occupant = (ChessPiece) board.getPiece(endPosition);
+                    if (occupant != null) {
+                        canMove = !(this.newteamcolor == occupant.getTeamColor());
+                    }
+                }
+                if (canMove) {
+                    moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                }
+                //b1 l2
+                moveRow = pieceRow-1;
+                moveColumn = pieceColumn-2;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
+                if (canMove) {
+                    endPosition = new Position(moveRow, moveColumn);
+                    occupant = (ChessPiece) board.getPiece(endPosition);
+                    if (occupant != null) {
+                        canMove = !(this.newteamcolor == occupant.getTeamColor());
+                    }
+                }
+                if (canMove) {
+                    moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                }
+                //b1 r2
+                moveRow = pieceRow-1;
+                moveColumn = pieceColumn+2;
+                canMove = (moveRow >= 1) && (moveColumn >= 1) && (moveRow <= 8) && (moveColumn <= 8);
+                if (canMove) {
+                    endPosition = new Position(moveRow, moveColumn);
+                    occupant = (ChessPiece) board.getPiece(endPosition);
+                    if (occupant != null) {
+                        canMove = !(this.newteamcolor == occupant.getTeamColor());
+                    }
+                }
+                if (canMove) {
+                    moves.add(new Move(myPosition, endPosition, this.promotionPiece));
+                }
                 return moves;
         }
         return null;

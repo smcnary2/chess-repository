@@ -29,7 +29,11 @@ public class Game implements ChessGame{
     public Collection<ChessMove> validMoves(ChessPosition startPosition) {
         ChessPiece piece = this.board.getPiece(startPosition);
         TeamColor tmpcolor;
-
+        if(piece.getTeamColor() == TeamColor.WHITE){
+            tmpcolor = TeamColor.BLACK;
+        }else{
+           tmpcolor = TeamColor.WHITE;
+        }
         moves = piece.pieceMoves(this.board, startPosition);
         //call isInCheck
         //simulate move on fake board
@@ -45,6 +49,7 @@ public class Game implements ChessGame{
                 fakeBoard.movePiece(tmp);//move piece back
                 kingForCheck = null;
                 check = this.isInCheck(piece.getTeamColor());
+
                 tmp = new Move(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()), new Position(m.getStartPosition().getRow(), m.getStartPosition().getColumn()), m.getPromotionPiece());
                 fakeBoard.movePiece(tmp);
                 fakeBoard.addPiece(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()),tmpPiece);
@@ -131,7 +136,6 @@ public class Game implements ChessGame{
                 Position tmpP = new Position(i,j);
                 ChessPiece tmp = board.getPiece(tmpP);
                 if( tmp != null && tmp.getTeamColor() != teamColor){
-
                     moves = tmp.pieceMoves(this.board,tmpP);//PieceMoves
                     if(moves != null){
                         if((moves.contains(new Move(tmpP,kingForCheck, null))) || (moves.contains(new Move(tmpP,kingForCheck, ChessPiece.PieceType.QUEEN)))){
@@ -170,12 +174,18 @@ public class Game implements ChessGame{
                             for (ChessMove m :
                                     moves) {
                                 //check all pieces moves not just king
-                                fakeBoard = tmpBoard;
+                                fakeBoard = this.board;
                                 //check if move causes check
                                 Move tmp = new Move(new Position(m.getStartPosition().getRow(), m.getStartPosition().getColumn()), new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()), m.getPromotionPiece());
-                                ChessPiece tmpPiece = fakeBoard.getPiece(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()));
+                                ChessPiece tmpPiece = this.board.getPiece(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()));
                                 fakeBoard.movePiece(tmp);//move piece back
-                                check = this.isInCheck(team);
+                                kingForCheck = null;
+                                findKing(teamColor);
+                                if(kingForCheck == null){
+                                    check = true;
+                                }else {
+                                    check = this.isInCheck(team);
+                                }
                                 tmp = new Move(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()), new Position(m.getStartPosition().getRow(), m.getStartPosition().getColumn()), m.getPromotionPiece());
                                 fakeBoard.movePiece(tmp);
                                 fakeBoard.addPiece(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()),tmpPiece);

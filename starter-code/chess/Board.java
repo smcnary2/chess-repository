@@ -25,8 +25,8 @@ public class Board implements ChessBoard{
     }
     @Override
     public void movePiece(ChessMove move){
-        int row = move.getStartPosition().getRow();
-        int column = move.getStartPosition().getColumn();
+        int row = move.getStartPosition().getRow()-1;
+        int column = move.getStartPosition().getColumn()-1;
         ChessPiece piece = newboard[row][column];
         newboard[row][column] = null;
         this.addPiece(move.getEndPosition(), piece);

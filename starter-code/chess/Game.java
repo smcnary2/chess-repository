@@ -68,13 +68,12 @@ public class Game implements ChessGame{
         }
 
         //contains
+
             if (moves.contains(move)) {
 
                 this.board.movePiece(move);
                 if (this.board.getPiece(move.getStartPosition()) != null) {
                     this.board.addPiece(move.getStartPosition(), null);
-                }else if(){
-
                 }
 
                 ChessPiece tmp = null;

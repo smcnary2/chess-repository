@@ -81,6 +81,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -112,6 +113,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -144,6 +146,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -176,6 +179,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -595,6 +599,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -626,6 +631,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -658,6 +664,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -690,6 +697,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+                        capture = true;
                     }
                 }
                 while (canMove) {
@@ -717,6 +725,7 @@ public class Piece implements ChessPiece {
                     occupant = (ChessPiece) board.getPiece(endPosition);
                     if (occupant != null) {
                         canMove = !(this.newteamcolor == occupant.getTeamColor());
+
                     }
                 }
                 if (canMove) {

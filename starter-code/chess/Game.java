@@ -13,7 +13,7 @@ public class Game implements ChessGame{
     public Position kingForCheck;
     public boolean inCheck;
     public Game(){
-        inCheck = false;
+        team = TeamColor.WHITE;
     }
     @Override
     public TeamColor getTeamTurn() {//done
@@ -63,6 +63,9 @@ public class Game implements ChessGame{
     public void makeMove(ChessMove move) throws InvalidMoveException {
          moves = this.validMoves(move.getStartPosition());
          //check if theres a promotion and switch out piece
+        if(!(this.board.getPiece(move.getStartPosition()).getTeamColor().equals(team))){
+            throw new InvalidMoveException();
+        }
 
         //contains
             if (moves.contains(move)) {
@@ -70,6 +73,8 @@ public class Game implements ChessGame{
                 this.board.movePiece(move);
                 if (this.board.getPiece(move.getStartPosition()) != null) {
                     this.board.addPiece(move.getStartPosition(), null);
+                }else if(){
+
                 }
 
                 ChessPiece tmp = null;
@@ -89,6 +94,11 @@ public class Game implements ChessGame{
                 }
             }else{
                 throw new InvalidMoveException();
+            }
+            if(team.equals(TeamColor.WHITE)){
+                team = TeamColor.BLACK;
+            }else{
+                team = TeamColor.WHITE;
             }
 
 

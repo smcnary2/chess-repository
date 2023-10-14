@@ -43,6 +43,7 @@ public class Game implements ChessGame{
                 Move tmp = new Move(new Position(m.getStartPosition().getRow(), m.getStartPosition().getColumn()), new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()), m.getPromotionPiece());
                 ChessPiece tmpPiece = this.board.getPiece(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()));
                 fakeBoard.movePiece(tmp);//move piece back
+                kingForCheck = null;
                 check = this.isInCheck(piece.getTeamColor());
                 tmp = new Move(new Position(m.getEndPosition().getRow(), m.getEndPosition().getColumn()), new Position(m.getStartPosition().getRow(), m.getStartPosition().getColumn()), m.getPromotionPiece());
                 fakeBoard.movePiece(tmp);
@@ -64,7 +65,6 @@ public class Game implements ChessGame{
          //check if theres a promotion and switch out piece
 
         //contains
-
             if (moves.contains(move)) {
 
                 this.board.movePiece(move);
@@ -112,8 +112,7 @@ public class Game implements ChessGame{
     public boolean isInCheck(TeamColor teamColor) {
         //check final move can kill king
         //boolean killedKing = false;
-        kingForCheck = null;
-
+        //kingForCheck = null;
         findKing(teamColor);//find king
         if(kingForCheck == null){
             System.out.println("hi");

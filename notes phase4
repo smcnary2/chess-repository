@@ -1,0 +1,29 @@
+relational databases
+column1 column2 column3
+row1    row1     row1
+row2    row2     row2
+row3    row3     row3
+
+record: simple data class
+its like tables from discrete math with the keys
+
+within a table the id has to be unique but you can reuse them in other tables
+
+primary key properties
+ unique:key must be unique
+ stable:the key doesn't change over time(you can autogenerate them)
+ simple:single value, cohesive
+
+ look at records.md in github
+
+download sql
+
+
+
+try{
+    var c = gitconn()
+
+
+}Finally{
+    c.close()
+}

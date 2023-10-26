@@ -4,3 +4,21 @@ GET                 listNames       /name               get list of names
 DELETE              deleteName      /name/:name         add the name represented to the name path variable
 
 
+user object, game object, auth object -> define them
+
+user service:register user, login, logout
+game service:new game, join game, list games
+admin/testing/app service: clear
+main: allocates different services(I think this was just an object lesson?)
+
+read phase 3!!
+follow the diagram
+can you introduce corruption code carefully
+
+what are java records, they may be useful
+whats a uml diagram??
+
+intelliJ can auto generate tests
+packages chess_phase2.requests and respnces
+
+

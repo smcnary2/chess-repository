@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="passoff-dependencies">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/passoff-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/tyrus-standalone-client-1.15.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

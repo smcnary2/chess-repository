@@ -1,9 +1,9 @@
 package chess_phase2.Models;
 
 public class User {
-    String username;
-    String password;
-    String email;
+    private String username;
+    private String password;
+    private String email;
     public User(String n, String pw, String e){
         username = n;
         password = pw;
@@ -12,5 +12,16 @@ public class User {
     public User(String n, String pw){
         username = n;
         password = pw;
+    }
+    public String getUsername(){
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword(){
+        return password;
     }
 }

@@ -27,3 +27,6 @@ try{
 }Finally{
     c.close()
 }
+
+Logging
+I think it's required in databases

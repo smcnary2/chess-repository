@@ -6,8 +6,14 @@ public class Responces {
     private String username;
 
     //constructor
-    public Responces(){
+    public Responces(int error){
+       if(){
 
+       }else if(){
+
+        }else if(){
+
+        }
     }
 
 

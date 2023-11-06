@@ -1,0 +1,61 @@
+petshop on github has example of each stage
+
+reorganize project for phase 5: create a module for client
+
+modules: client, shared, server
+
+
+repl: read execute print and loop
+the chess program is a repl
+
+Console UI:
+help
+options: lists endpoints from phase 3
+type in one of the options
+
+a1 is always white
+
+this is a commandline application
+how do you build one?
+ public static void main(String args)
+ args you can pass things into your program
+ you can run the program trhough cmd line
+ standard in and standard out: input and output streams
+ System.out.print(output stream
+ Scanner l = new Scanner(System.in) (input stream
+
+ take inputs then split them apart and finally do the thing
+
+ consoles all act differently: set foreground and background colors(code in instructions)
+ entire commandline command: \u001b[31;44;1m
+ \u001b: gonna change colors
+ 31;44;1: background color, text color, bold
+ m: tells it to stop
+ more colors and options in instructions on github
+
+ there's unicode for the chess pieces under escape sequences on instruction: blow up the font because its very small
+
+ you are also calling end points
+ you have to write client? (in notes from like a month ago)
+
+HTTP Client:
+ webclient in one of the web-api.md
+ make uri
+ uri.toULR.openConnection
+ set method you want to use
+ http.connect
+ then start sending data
+ to look at the data use the try
+ in the try takes the stram and coverts it into useable information
+
+ set headers and send bodies?
+
+http.setDoOutput(true)
+writeBody(request, http)
+
+theres a write body method it refers to
+theres also a readbody method look at them
+
+you need to make a fake server
+
+

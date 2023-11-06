@@ -12,13 +12,9 @@ public class AuthDAO {
     public static Map<String, AuthData> token = new HashMap<>();
 
     //find authorization
-    public String findAuth(String username) throws DataAccessException {
-        for (int i = 0; i < token.size(); i++) {
-            if (token.containsKey(username)) {
-                return username;
-            }
-        }
-        return null; //returns Authtoken variable/data
+    public AuthData findAuth(String username) throws DataAccessException {
+        return token.get(username);//returns Authtoken variable/data
+
     }
 
     public void delete() {

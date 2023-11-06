@@ -12,11 +12,12 @@ import requests.RegisterRequest;
 import java.util.UUID;
 
 public class UserService {//register user, login, logout
-    UsersDAO pushRequest;
-    AuthDAO newToken;
+    UsersDAO pushToUserDAO;
+    AuthDAO tokenDAO;
 
     public UserService() {
-        pushRequest = new UsersDAO();
+        pushToUserDAO = new UsersDAO();
+        tokenDAO = new AuthDAO();
     }
 
     /*
@@ -28,38 +29,24 @@ public class UserService {//register user, login, logout
                 return register response
              */
     //register user: username, password, email
-    public String registerUser(RegisterRequest newrequest) throws DataAccessException {
+    public AuthData registerUser(RegisterRequest newrequest) throws DataAccessException {//has to return AuthToken??
 
-        if (newrequest.getUser().isEmpty() || newrequest.getPassword().isEmpty() || newrequest.getEmail().isEmpty()) {//check if request has valid fields
-            //400 error bad request
-        }
-        for (User x :
-                pushRequest.findAllUsers()) {
-            if (x.getUsername().equals(newrequest.getUser())) {
-                //403 error already taken
-            }
-            if (x.getEmail().equals(newrequest.getEmail())) {
-                //403 error already taken
-            }
-            //do I check password
-        }
-        //what is a 500 error
         User newUser = new User(newrequest.getUser(), newrequest.getPassword(), newrequest.getEmail());
-        pushRequest.insertUser(newUser);
+        pushToUserDAO.insertUser(newUser);
         AuthData t = new AuthData(UUID.randomUUID().toString(), newrequest.getUser());//creates a unique string for authtokin
-        newToken.insert(t);//is this where I'm supposed to create the authtoken
+        tokenDAO.insert(t);//is this where I'm supposed to create the authtoken
 
-        return null;
+        return tokenDAO.findAuth(newrequest.getUser());
     }
 
     //login: username, password
     public String login(LoginRequests newrequest) throws DataAccessException {
-        if (newToken.findAuth(newrequest.getUser()) == null) {
+        if (tokenDAO.findAuth(newrequest.getUser()) == null) {
             //401 error unauthorized
         }
         //500 error
         User newUser = new User(newrequest.getUser(), newrequest.getPassword());
-        pushRequest.findUser(newUser);
+        pushToUserDAO.findUser(newUser);
         //return response
         return null;
     }

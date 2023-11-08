@@ -30,7 +30,7 @@ public class UserService {//register user, login, logout
              */
     //register user: username, password, email
     public AuthData registerUser(RegisterRequest newrequest) throws DataAccessException {//has to return AuthToken??
-
+        //create a message send back to handler
         User newUser = new User(newrequest.getUser(), newrequest.getPassword(), newrequest.getEmail());
         pushToUserDAO.insertUser(newUser);
         AuthData t = new AuthData(UUID.randomUUID().toString(), newrequest.getUser());//creates a unique string for authtokin

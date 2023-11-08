@@ -22,6 +22,7 @@ public class RegisterHandler implements Route {
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
+        int error;
         RegisterRequest r = gson.fromJson(request.body(), RegisterRequest.class);
         UserService userService = new UserService();
         if (r.getUser().isEmpty() || r.getPassword().isEmpty() || r.getEmail().isEmpty()) {//check if request has valid fields
@@ -31,16 +32,18 @@ public class RegisterHandler implements Route {
                 placeholder.findAllUsers()) {
             if (x.getUsername().equals(r.getUser())) {
                 response.status(403);//403 error already taken
+
             }
             if (x.getEmail().equals(r.getEmail())) {
                 response.status(403);//403 error already taken
             }
         }
         registerResponse = new Responses();
-        registerResponse.registerResponse(userService.registerUser(r));// create registerResponse and assign to value
+        // create registerResponse and assign to value
         //then send to serivce
         response.status(200);//what is this for??
         //return gson.toJson();//put what service returns in here
-        return null;
+        //return message if error code
+        return registerResponse.registerResponse(userService.registerUser(r));
     }
 }

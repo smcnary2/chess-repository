@@ -30,13 +30,13 @@ public class ChessServer {
          */
         Spark.post("/user", (request, response) -> new RegisterHandler().handle(request, response));//do for each end point
         //clear Request
-        //Spark.delete("/db",(request, response) -> new ClearHandler());//not complete
+        Spark.delete("/db", (request, response) -> new ClearHandler());//not complete
         //join game
         //Spark.post("/game", (request, response) -> new JoinGameHandler());
         //list games: get
         //Spark.get("/game", (request, response) -> new ListGamesHandler().handle(request,response));
         //login:get?
-        //Spark.get("/session", ((request, response) -> new LoginHandler().handle(request,response)));
+        //Spark.get("/session", ((request, response) -> new LoginHandler().handle(request, response)));
         //new game
         //Spark.post("/game", ((request, response) -> new NewGameHandler().handle(request,response)));
         //logout:delete

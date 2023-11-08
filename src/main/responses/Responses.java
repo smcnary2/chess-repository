@@ -13,10 +13,8 @@ public class Responses {
     public Responses() {
     }
 
-    public String registerResponse(AuthData userAndToken) {//success response: { "username":"", "authToken":"" }
-        authToken = userAndToken.getAuthToken();
-        username = userAndToken.getUsername();
-        return "username: " + username + ", authToken: " + authToken;
+    public AuthData registerResponse(AuthData userAndToken, int error) {//success response: { "username":"", "authToken":"" }
+        return userAndToken;
         //this feels right but, I don't know or do I return an obj.
     }
 

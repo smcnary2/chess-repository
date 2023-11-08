@@ -33,5 +33,6 @@ public class AuthDAO {
     public void insert(AuthData t) {
         //inserts the reandom string and username into map
         token.put(t.getUsername(), t);
+        System.out.print(1);
     }
 }

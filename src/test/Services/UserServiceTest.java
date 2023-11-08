@@ -17,5 +17,13 @@ class UserServiceTest {
         var res = Assertions.assertDoesNotThrow(() -> userService.registerUser(req));
 
         Assertions.assertEquals("joe", res.getUsername());
+        //dont have to check for empty strings already checks in TA tests
     }
+
+    @Test
+    void loginUser() {
+
+    }
+
+
 }

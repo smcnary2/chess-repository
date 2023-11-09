@@ -3,6 +3,7 @@ package Services;
 import Models.AuthData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import requests.LoginRequests;
 import requests.RegisterRequest;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,8 +23,15 @@ class UserServiceTest {
 
     @Test
     void loginUser() {
+        var userService = new UserService();
 
+        var req = new LoginRequests("joe", "pw");
+        var res = Assertions.assertDoesNotThrow(() -> userService.login(req));
+
+        Assertions.assertEquals("joe", res.getUsername());
     }
+
+    //you need to make a clear test still
 
 
 }

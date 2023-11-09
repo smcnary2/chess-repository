@@ -36,7 +36,7 @@ public class ChessServer {
         //list games: get
         //Spark.get("/game", (request, response) -> new ListGamesHandler().handle(request,response));
         //login:get?
-        //Spark.get("/session", ((request, response) -> new LoginHandler().handle(request, response)));
+        Spark.get("/session", ((request, response) -> new LoginHandler().handle(request, response)));
         //new game
         //Spark.post("/game", ((request, response) -> new NewGameHandler().handle(request,response)));
         //logout:delete

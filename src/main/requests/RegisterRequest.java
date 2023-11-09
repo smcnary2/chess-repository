@@ -10,6 +10,7 @@ public class RegisterRequest {
         username = n;
         password = pw;
         email = e;
+        error = 200;
     }
 
     public String getPassword() {

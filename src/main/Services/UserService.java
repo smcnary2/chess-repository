@@ -44,15 +44,22 @@ public class UserService {//register user, login, logout
     }
 
     //login: username, password
-    public String login(LoginRequests newrequest) throws DataAccessException {
+    public AuthData login(LoginRequests newrequest) throws DataAccessException {
+
         if (tokenDAO.findAuth(newrequest.getUser()) == null) {
-            //401 error unauthorized
+            newrequest.error = 401; //401 error unauthorized
+            return null;
         }
-        //500 error
+
         User newUser = new User(newrequest.getUser(), newrequest.getPassword());
-        pushToUserDAO.findUser(newUser);
+
+        if (pushToUserDAO.findUser(newUser) == null) {
+            newrequest.error = 500;
+            return null;
+        }
+        newrequest.error = 200;
         //return response
-        return null;
+        return tokenDAO.findAuth(newrequest.getUser());
     }
 
     //logout: authorization token??

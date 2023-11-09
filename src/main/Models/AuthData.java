@@ -5,9 +5,8 @@ public class AuthData {
     String username;
 
     public AuthData(String token, String name) {
-        authToken = token;
         username = name;
-
+        authToken = token;
     }
 
     public String getUsername() {

@@ -16,6 +16,8 @@ public class UsersDAO {
 
     public void insertUser(User newUser) throws DataAccessException {// insert user
         databasePlaceholder.add(newUser);
+        //System.out.println(newUser.getUsername());
+        //System.out.print(databasePlaceholder.get(0).getUsername() + databasePlaceholder.get(0).getPassword() + databasePlaceholder.get(0).getEmail());
     }
 
     //find user
@@ -34,6 +36,10 @@ public class UsersDAO {
     //find all users
     public List<User> findAllUsers() throws DataAccessException {
         return databasePlaceholder;//is this safe
+    }
+
+    public boolean databaseIsEmpty() {
+        return databasePlaceholder.isEmpty();
     }
 
     public void clearAllUsers() {

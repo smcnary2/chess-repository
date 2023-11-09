@@ -58,4 +58,37 @@ theres also a readbody method look at them
 
 you need to make a fake server
 
+no test cases from the TAs
+
+Web Client section in github
+
+use templates so you have to write less read and write classes
+
+rework project structure:create modules: client, shared
+chess game is shared between modules so that's why you need the shared module
+
+move code from server module to shared module
+
+create dependencies first then start moving things tot he shared modules
+if you don't then you'll have a bunch of errors
+like the jar files from the first project
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

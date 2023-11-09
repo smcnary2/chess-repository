@@ -4,16 +4,19 @@ public class User {
     private String username;
     private String password;
     private String email;
-    public User(String n, String pw, String e){
+
+    public User(String n, String pw, String e) {
         username = n;
         password = pw;
         email = e;
     }
-    public User(String n, String pw){
+
+    public User(String n, String pw) {
         username = n;
         password = pw;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return username;
     }
 
@@ -21,7 +24,8 @@ public class User {
         return email;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
+
 }

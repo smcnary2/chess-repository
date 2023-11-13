@@ -12,15 +12,14 @@ public class AuthDAO {
     public static Map<String, AuthData> token = new HashMap<>();
 
     //find authorization
-    public AuthData findAuth(String username) throws DataAccessException {
-        return token.get(username);//returns Authtoken variable/data
-
+    public AuthData findAuth(String authtoken) throws DataAccessException {
+        return token.get(authtoken);//returns Authtoken variable/data
     }
 
-    public void delete() {
-//        if(token.containsKey()){
-//            token.remove();
-//        }
+
+    public void delete(String user) {
+        token.remove(user);
+        // remove key or replace the authorization?
     }
 
     public void clear() {
@@ -32,7 +31,12 @@ public class AuthDAO {
     //delete, insert, clear
     public void insert(AuthData t) {
         //inserts the reandom string and username into map
-        token.put(t.getUsername(), t);
-        //System.out.print(1);
+        token.put(t.getAuthToken(), t);
+        System.out.print(1);
+    }
+
+    public AuthData setAuthtoken(AuthData auth, String username) {
+
+        return token.replace(username, auth);
     }
 }

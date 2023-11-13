@@ -17,7 +17,7 @@ public class LogoutHandler implements Route {
         userService.logout(r);// create registerResponse and assign to value
 
 
-        response.status();// you pass those error codes into here
+        response.status(r.error);// you pass those error codes into here
         //then send to serivce
         return "{}";
     }

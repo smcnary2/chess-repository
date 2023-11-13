@@ -49,9 +49,10 @@ public class RegisterHandler implements Route {
         registerResponse = new Responses();
         // create registerResponse and assign to value
         //then send to serivce
-        response.status(r.error);//what is this for??
+        response.status(r.error);
         //return gson.toJson();//put what service returns in here
         //return message if error code
+
         return gson.toJson(registerResponse.registerResponse(userService.registerUser(r)));
     }
 }

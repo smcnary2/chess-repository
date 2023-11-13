@@ -10,6 +10,7 @@ public class LoginRequests {
     public LoginRequests(String u, String pw) {//my idea is to create a new user put it as a loginRequest obj then push it to Dao and compare the new user obj to the database user obj
         username = u;
         password = pw;
+        error = 200;
     }
 
     public String getUser() {

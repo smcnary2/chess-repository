@@ -37,7 +37,7 @@ public class UserService {//register user, login, logout
             pushToUserDAO.insertUser(newUser);
             AuthData t = new AuthData(UUID.randomUUID().toString(), newrequest.getUser());//creates a unique string for authtokin
             tokenDAO.insert(t);//is this where I'm supposed to create the authtoken
-            return tokenDAO.findAuth(newrequest.getUser());
+            return tokenDAO.findAuth(t.getAuthToken());
         }
 
         return null;
@@ -46,25 +46,33 @@ public class UserService {//register user, login, logout
     //login: username, password
     public AuthData login(LoginRequests newrequest) throws DataAccessException {
 
-        if (tokenDAO.findAuth(newrequest.getUser()) == null) {
+        if (tokenDAO.findAuth(newrequest.getUser()) != null) {
             newrequest.error = 401; //401 error unauthorized
-            return null;
+            return new AuthData("already logged in", "unauthorized");
         }
 
         User newUser = new User(newrequest.getUser(), newrequest.getPassword());
 
         if (pushToUserDAO.findUser(newUser) == null) {
             newrequest.error = 500;
-            return null;
+            return new AuthData("cannot find User", "invalid field");
         }
         newrequest.error = 200;
+        AuthData t = new AuthData(UUID.randomUUID().toString(), newrequest.getUser());
+        tokenDAO.insert(t);
         //return response
         return tokenDAO.findAuth(newrequest.getUser());
     }
 
     //logout: authorization token??
     public void logout(LogoutRequest r) throws DataAccessException {
-        //idk how the response works yet
+        if (tokenDAO.findAuth(r.getAuthtoken()) == null) {
+            r.error = 401;//error 401 unauthorized
+        } else {
+            r.error = 200;
+            tokenDAO.delete(r.getAuthtoken());
+        }
+
     }
 
 

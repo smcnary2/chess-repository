@@ -27,5 +27,11 @@ public class Responses {
         //this feels right but, I don't know or do I return an obj.
     }
 
+    public AuthData loginResponse(AuthData userAndToken) {
+
+        System.out.println(userAndToken.getAuthToken());
+        return userAndToken;
+    }
+
 
 }
